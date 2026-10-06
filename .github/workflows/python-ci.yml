@@ -1,0 +1,19 @@
+name: Python CI
+
+on: 
+  push:
+  pull_request: 
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: action/checkout@v7
+
+      - name: Checkout Python version
+        run: python --version
+
+      - name: Run python program
+        run: python hello.py
