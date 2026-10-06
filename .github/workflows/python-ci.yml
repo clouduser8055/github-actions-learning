@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: action/checkout@v7
+        uses: actions/checkout@v7
 
       - name: Checkout Python version
         run: python --version
