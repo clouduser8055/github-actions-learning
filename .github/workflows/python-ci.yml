@@ -4,13 +4,13 @@ on:
   push:
   pull_request: 
 
+env:
+  APP_NAME: github-actions-learning
+
 jobs:
   test:
     runs-on: ubuntu-latest
-
-    env:
-      APP_NAME: github-actions-learning
-
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v7
@@ -26,11 +26,13 @@ jobs:
       - name: Run python program
         run: python hello.py
 
-      - name: Show application name
+      - name: Show Application Name
         run: echo "Application: $APP_NAME"
 
       - name: Show branch name
         run: echo "Branch: ${{ github.ref_name }}"
+
+      
 
     
         
