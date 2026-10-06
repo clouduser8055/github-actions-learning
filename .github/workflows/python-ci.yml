@@ -12,7 +12,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v7
 
-      - name: Checkout Python version
+      - name: Set Up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Display python version
         run: python --version
 
       - name: Run python program
