@@ -8,8 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Say hello
-        run: echo "Hello from GitHub Actions"
+      - name: My name
+        run: echo "Anuj Nahar"
 
-      - name: Check operating system
-        run: uname -a
+      - name: Goal
+        run: echo "I am learning CI/CD"
+
+      - name: Current Directory
+        run: pwd
