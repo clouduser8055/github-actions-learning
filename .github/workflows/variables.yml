@@ -4,8 +4,6 @@ on:
   push: 
   pull_request: 
 
-
-
 jobs:
   config:
     runs-on: ubuntu-latest
