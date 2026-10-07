@@ -16,10 +16,10 @@ jobs:
         run: echo "Environment -> ${{ vars.APP_ENV }}"
         
       - name: Show Secrets
-        run:
+        run:  |
             if [ -n "$MY_Secret"];then
               echo "Secret is configured"
             else
               echo "Secret is missing"
-            fi
+            fi 
             
