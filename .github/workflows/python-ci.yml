@@ -56,3 +56,12 @@ jobs:
 
       - name: Complete status
         run: echo "Build Completed"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: deploy
+        if: github.ref_name == 'main'
+        run: echo "Deploying...."
