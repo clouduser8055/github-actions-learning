@@ -46,6 +46,10 @@ jobs:
       - name: Simulate failure
         run: exit 1
 
+      - name: failure handler
+        if: ${{ failure() }} 
+        run: echo "Something failed"
+
       - name: Run python program
         run: python hello.py
 
@@ -53,11 +57,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
 
-    steps:
-      - name: failure handler
-        if: ${{ failure() }} 
-        run: echo "Something failed"
-        
+    steps:   
       - name: Start status
         run: echo "Build Started"
 
