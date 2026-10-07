@@ -34,7 +34,7 @@ jobs:
 
       - name: Use Secret
         env:
-          MY_SECRET: ${{ secrets.MY_SECRET}}
+          MY_SECRET: ${{ secrets.MY_SECRET }}
 
         run: |
             if [ -n "$MY_SECRET" ]; then
