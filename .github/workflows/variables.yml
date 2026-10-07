@@ -4,6 +4,9 @@ on:
   push: 
   pull_request: 
 
+env:
+  MY_Secret: ${{secrets.MY_SECRET}}
+
 jobs:
   config:
     runs-on: ubuntu-latest
@@ -13,4 +16,10 @@ jobs:
         run: echo "Environment -> ${{ vars.APP_ENV }}"
         
       - name: Show Secrets
-        run: echo "Secret -> ${{ secrets.MY_SECRET }}"
+        run:
+            if [ -n "$MY_Secret"];then
+              echo "Secret is configured"
+            else
+              echo "Secret is missing"
+            fi
+            
