@@ -46,9 +46,17 @@ jobs:
       - name: Simulate failure
         run: exit 1
 
+      - name: Success message
+        if: ${{ success() }}
+        run: echo "Everything succeeded"
+
       - name: failure handler
         if: ${{ failure() }} 
-        run: echo "Something failed"
+        run: echo "A previou step failed"
+
+      - name: Cleanup
+        if: ${{ always() }}
+        run: echo "Cleanup"
 
       - name: Run python program
         run: python hello.py
