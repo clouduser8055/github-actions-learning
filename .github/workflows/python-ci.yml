@@ -45,7 +45,14 @@ jobs:
 
       - name: Run python program
         run: python hello.py
-      
-      
-        
-        
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Start status
+        run: echo "Build Started"
+
+      - name: Complete status
+        run: echo "Build Completed"
