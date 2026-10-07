@@ -32,6 +32,17 @@ jobs:
       - name: Show application environment
         run: echo "Environment -> ${{ vars.APP_ENV }}"
 
+      - name: Use Secret
+        env:
+          MY_SECRET: ${{ secrets.MY_SECRET}}
+
+        run: |
+            if [ -n "$MY_SECRET" ]; then
+              echo "Secret is configured"
+            else
+              echo "Secret is missing"
+            fi
+
       - name: Run python program
         run: python hello.py
       
