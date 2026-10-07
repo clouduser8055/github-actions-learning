@@ -23,20 +23,15 @@ jobs:
       - name: Display python version
         run: python --version
 
-      - name: Run python program
-        run: python hello.py
-
       - name: Show application name
         run: echo "Application --> $APP_NAME"
 
       - name: Show branch name
         run: echo "Branch -> ${{ github.ref_name }}"
 
-
+      - name: Run python program
+        run: python hello.py
       
-
-    
-        
       
         
         
