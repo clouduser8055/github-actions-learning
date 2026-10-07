@@ -59,9 +59,9 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
     if: github.ref_name == 'main'
-
+    runs-on: ubuntu-latest
+    
     steps:
       - name: deploying application
         run: echo "Deploying...."
