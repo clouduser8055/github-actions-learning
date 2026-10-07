@@ -29,6 +29,9 @@ jobs:
       - name: Show application name
         run: echo "Application --> $APP_NAME"
 
+      - name: Show branch name
+        run: echo "Branch -> ${{ github.ref_name }}"
+
 
       
 
