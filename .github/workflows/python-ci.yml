@@ -54,6 +54,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: failure handler
+        if: ${{ failure() }} 
+        run: echo "Something failed"
+        
       - name: Start status
         run: echo "Build Started"
 
