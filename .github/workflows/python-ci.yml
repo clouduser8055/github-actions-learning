@@ -71,7 +71,15 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
 
-    steps:   
+    steps:
+      - name: Download report
+        uses: actions/download-artifact@v5
+        with:
+          name: ci-report
+
+      - name: Show report
+        run: cat report.txt
+        
       - name: Start status
         run: echo "Build Started"
 
