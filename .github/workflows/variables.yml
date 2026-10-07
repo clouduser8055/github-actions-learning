@@ -1,0 +1,16 @@
+name: Variables and Secret Configurations
+
+on: 
+  push: 
+  pull_request: 
+
+jobs:
+  config:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Display Application Environment
+        run: echo "Environment -> ${{ vars.APP_ENV }}"
+        
+      - name: Show Secrets
+        run: echo "Secret -> ${{ secrets.MY_SECRET }}"
