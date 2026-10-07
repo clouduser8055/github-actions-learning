@@ -48,7 +48,7 @@ jobs:
 
       - name: failure handler
         if: ${{ failure() }} 
-        run: echo "A previou step failed"
+        run: echo "A previous step failed"
 
       - name: Create Report
         run: |
