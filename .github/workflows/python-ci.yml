@@ -29,6 +29,9 @@ jobs:
       - name: Show branch name
         run: echo "Branch -> ${{ github.ref_name }}"
 
+      - name: Show application environment
+        run: echo "Environment -> ${{ vars.APP_ENV }}"
+
       - name: Run python program
         run: python hello.py
       
