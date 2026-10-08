@@ -74,7 +74,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: ci-report-python-${{ matrix.python-version }}
-          path: report.txt
+          path: report-${{ matrix.python-version }}.txt
           
       - name: Run python program
         run: python hello.py
