@@ -14,7 +14,6 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.11", "3.12", "3.13"]
-        # artifacts: ["ci-report-01", "ci-report-02", "ci-report-03"]
     
     steps:
       - name: Checkout Repository
@@ -65,16 +64,16 @@ jobs:
         
       - name: Create Report
         run: |
-          echo "CI Pipeline Report" > report.txt
-          echo "Application: $APP_NAME" >> report.txt
-          echo "Branch: ${{ github.ref_name }}" >> report.txt
-          echo "Python version: " >> report.txt
-          python --version >> report.txt
+          echo "CI Pipeline Report" > report-${{ matrix.python-version }}.txt
+          echo "Application: $APP_NAME" >> report-${{ matrix.python-version }}.txt
+          echo "Branch: ${{ github.ref_name }}" >> report-${{ matrix.python-version }}.txt
+          echo "Python version: " >> report-${{ matrix.python-version }}.txt
+          python --version >> report-${{ matrix.python-version }}.txt
 
       - name: Upload report
         uses: actions/upload-artifact@v7
         with:
-          name: ci-report
+          name: ci-report-python-${{ matrix.python-version }}
           path: report.txt
           
       - name: Run python program
@@ -88,10 +87,20 @@ jobs:
       - name: Download report
         uses: actions/download-artifact@v8
         with:
-          name: ci-report
+          pattern: ci-report-python-*
+          path: reports
+          merge-multiple: true
 
       - name: Show report
-        run: cat report.txt
+        run: |
+            echo "Downloaded reports: "
+            ls -la reports
+            echo ""
+            for file in reports/*;do
+              echo "======$file======"
+              cat $file
+              echo ""
+            done
         
       - name: Start status
         run: echo "Build Started"
