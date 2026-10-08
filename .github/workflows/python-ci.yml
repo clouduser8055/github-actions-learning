@@ -88,6 +88,7 @@ jobs:
 
   build:
     needs: test
+    if: needs.test.outputs.test-status == 'passed'
     runs-on: ubuntu-latest
 
     steps:
@@ -117,17 +118,6 @@ jobs:
 
       - name: Show test status
         run: echo "Test status --> ${{ needs.test.outputs.test-status }}"
-
-      - name: check test status
-        env:
-            result: "${{ needs.test.outputs.test-status }}"
-        run: |
-            if [ $result != "passed"]; then
-              echo "test status: failed"
-              exit 1
-            else
-              echo "test status: passed"
-            fi
         
   deploy:
     needs: build
