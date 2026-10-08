@@ -127,6 +127,7 @@ jobs:
               exit 1
             else
               echo "test status: passed"
+            fi
         
   deploy:
     needs: build
