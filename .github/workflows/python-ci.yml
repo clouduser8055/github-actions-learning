@@ -29,7 +29,7 @@ jobs:
 
       - name: Python setup status
         if: ${{ success() }}
-        run: echo "Python Setup is Successful"
+        run: echo "Python Setup is Successfully implemented"
 
       - name: Show application name
         run: echo "Application --> $APP_NAME"
