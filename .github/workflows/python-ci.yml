@@ -84,7 +84,7 @@ jobs:
 
       - name: Generate test status
         id: test-status
-        run: echo "status=passed" >> "$GITHUB_OUTPUT"
+        run: echo "status=failed" >> "$GITHUB_OUTPUT"
 
   build:
     needs: test
