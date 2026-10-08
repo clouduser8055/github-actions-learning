@@ -11,6 +11,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    outputs:
+      test-status: ${{ steps.test-status.outputs.status }}
+
     strategy:
       matrix:
         python-version: ["3.11", "3.12", "3.13"]
@@ -79,6 +82,10 @@ jobs:
       - name: Run python program
         run: python hello.py
 
+      - name: Generate test status
+        id: test-status
+        run: echo "status=passed" >> "$GITHUB_OUTPUT"
+
   build:
     needs: test
     runs-on: ubuntu-latest
@@ -107,6 +114,9 @@ jobs:
 
       - name: Complete status
         run: echo "Build Completed"
+
+      - name: Show test status
+        run: echo "Test status --> ${{ needs.test.outputs.test-status }}"
 
   deploy:
     needs: build
