@@ -1,0 +1,8 @@
+name: Reusable Workflow demo
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  call-python-workflow:
+    uses: ./.github/workflows/reusable-python.yml
