@@ -2,9 +2,19 @@ name: Reusable Workflow demo
 
 on: 
   workflow_dispatch:
+    inputs:
+      python-version:
+        description: "Python version to use"
+        required: true
+        default: "3.13" 
+        type: choice
+        options:
+          - "3.11"
+          - "3.12"
+          - "3.13"
 
 jobs:
   call-python-workflow:
     uses: ./.github/workflows/reusable-python.yml
     with:
-      python-version: "3.12"
+      python-version: ${{ inputs.python-version }}
