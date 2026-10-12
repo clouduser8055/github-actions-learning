@@ -34,7 +34,7 @@ jobs:
   say-hello-action:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/hello-world-javascript-action@main
+      - uses: actions/hello-world-javascript-action@081a6d193d1dcb38460df1e6927486d748730f9d
         with:
           who-to-greet: "World"
 
