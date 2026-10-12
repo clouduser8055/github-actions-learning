@@ -31,17 +31,6 @@ jobs:
         run: print("Hello World!")
         shell: python
 
-      - name: Use Secret in python
-        run: |
-          MY_SECRET = ${{ secrets.MY_SECRET }}
-          if not MY_SECRET:
-            print("This Is Not My Secret")
-          else:
-            print(MY_SECRET)
-            print("Good Work!")
-
-        shell: python
-
 
 
 
