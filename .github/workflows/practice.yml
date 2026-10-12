@@ -32,10 +32,8 @@ jobs:
         shell: python
 
       - name: Use Secret in python
-        env:
-          MY_SECRET: ${{ secrets.MY_SECRET }}
-
         run: |
+          MY_SECRET = ${{ secrets.MY_SECRET }}
           if not MY_SECRET:
             print("This Is Not My Secret")
           else:
