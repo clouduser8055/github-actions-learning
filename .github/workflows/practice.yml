@@ -30,3 +30,47 @@ jobs:
       - name: Using python shell
         run: print("Hello World!")
         shell: python
+
+      - name: Use Secret in python
+        env:
+          MY_SECRET: ${{ secrets.MY_SECRET }}
+
+        run: |
+          if not MY_SECRET:
+            print("This Is Not My Secret")
+          else:
+            print(MY_SECRET)
+            print("Good Work!")
+
+        shell: python
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
