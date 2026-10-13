@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: caching setup
-        uses: actions/cache@latest
+        uses: actions/cache@main
         with:
           cache: "pip"
 
