@@ -1,0 +1,42 @@
+name: Artifacts Upload and Download
+
+on: 
+  push: 
+    branches:
+      - "main"
+
+jobs:
+  upload-artifact:
+    runs-on: ubuntu-latest
+    name: produce-artifact
+
+    steps:
+      - name: creating artifact file
+        run: |
+          echo "Hello World!" > artifact.txt
+          echo "This is anuj Nahar" >> artifact.txt
+          echo "Preparing for a Hard ComeBack" >> artifact.txt
+
+      - name: uploading artifact text file
+        uses: actions/upload-artifact@v7
+        with:
+          name: example-artifact
+          path: artifact.txt
+
+  dowload-artifact:
+    runs-on: ubuntu-latest
+    name: consume-artifact
+    needs: upload-artifact
+
+    steps:
+      - name: Dowloading artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: example-artifact
+
+      - name: Display contents of artifact
+        run: cat artifact.txt
+
+
+
+          
