@@ -1,0 +1,19 @@
+name: Caching
+
+on: 
+  push:
+
+jobs:
+  caches:
+    runs-on: ubuntu-latest
+    name: caching-installed-dependencies
+
+    steps:
+      - name: caching setup
+        uses: actions/cache@latest
+        with:
+          cache: "pip"
+
+      - name: install dependencies
+        run: pip install -r requirements.txt
+        shell: python
