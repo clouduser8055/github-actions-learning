@@ -4,16 +4,15 @@ on:
   push:
 
 jobs:
-  caches:
+  actions-cache:
     runs-on: ubuntu-latest
-    name: caching-installed-dependencies
+    name: Prime demo cache
 
     steps:
-      - name: caching setup
+      - name: restore cache
+        id: demo-cache
         uses: actions/cache@v5
         with:
-          cache: "pip"
-
-      - name: install dependencies
-        run: pip install -r requirements.txt
-        shell: python
+          path: demo-cache
+          key: demo-cache-v1
+    
