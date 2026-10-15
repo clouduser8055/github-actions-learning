@@ -34,4 +34,26 @@ jobs:
         run: |
           echo "cache-hit? -> ${{ steps.demo-cache.outputs.cache-hit}}"
           cat demo-cache/timestamp.txt
-    
+
+
+  python-cache:
+    needs: actions-cache
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout rep
+        uses: actions/checkout@v7
+
+      - name: Python setup  
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Display python version
+        run: python --version
+
+        
