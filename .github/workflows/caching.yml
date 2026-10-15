@@ -1,7 +1,7 @@
 name: Caching
 
 on: 
-  push:
+  workflow_dispatch: 
 
 jobs:
   actions-cache:
@@ -15,4 +15,23 @@ jobs:
         with:
           path: demo-cache
           key: demo-cache-v1
+
+      - name: populate cache directory
+        if: steps.demo-cache.outputs.cache-hit != 'true'
+        run: |
+          echo "Cache miss - generating content"
+          mkdir -p demo-cache
+          date > demo-cache/timestamp.txt
+
+      - name: Save cache
+        if: steps.demo-cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v5
+        with:
+          path: demo-cache
+          key: demo-cache-v1
+
+      - name: Verify cache status
+        run: |
+          echo "cache-hit? -> ${{ steps.demo-cache.outputs.cache-hit}}"
+          cat demo-cache/timestamp.txt
     
