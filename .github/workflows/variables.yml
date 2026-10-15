@@ -1,8 +1,7 @@
 name: Variables and Secret Configurations
 
 on: 
-  push: 
-  pull_request: 
+  workflow_dispatch: 
 
 jobs:
   config:
