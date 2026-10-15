@@ -1,0 +1,25 @@
+name: Triggering Events
+
+on: 
+  push: 
+    branches:
+      - "example-branch/*"
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      - "filters/*.md"
+      - "!filters/*.txt"
+  workflow_dispatch: 
+
+jobs:
+  job-1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump full envent JSON
+        run: |
+          echo "==== $GITHUB_EVENT_NAME payload ===="
+          echo "$GITHUB_EVENT_PATH"
+  
