@@ -9,11 +9,9 @@ on:
       - opened
       - synchronize
       - reopened
-
     paths:
       - "filters/*.md"
       - "!filters/*.txt"
-    
   workflow_dispatch: 
 
 jobs:
