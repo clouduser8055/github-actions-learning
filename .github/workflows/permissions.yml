@@ -28,3 +28,21 @@ jobs:
       - name: Confirm the failure
         if: failure()
         run: echo "Write operation was blocked - token is read-only."
+
+  job-2:
+    runs-on: ubuntu-latest
+    permissions: 
+      pull-requests: write
+    
+    steps:
+      - uses: actions/checkout@v5
+      - name: Attempt to add a label (expected to success)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr edit 1 --add-lable "documentation"
+      
+      - name: Confirm success
+        if: success()
+        run: echo " Write Operation Successful."
+
