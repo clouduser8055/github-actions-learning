@@ -3,6 +3,9 @@ name: Variables and Secret Configurations
 on: 
   workflow_dispatch: 
 
+env:
+  my_name: "Anuj Nahar"
+
 jobs:
   config:
     runs-on: ubuntu-latest
