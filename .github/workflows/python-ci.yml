@@ -51,11 +51,19 @@ jobs:
           MY_SECRET: ${{ secrets.MY_SECRET }}
 
         run: |
-            if [ -n "$MY_SECRET" ]; then
-              echo "Secret is configured"
-            else
-              echo "Secret is missing"
-            fi
+          if $MY_SECRET:
+            print("Secret is configured")
+          else:
+            print("Secret is missing")
+
+        shell: python
+
+        # run: |
+        #     if [ -n "$MY_SECRET" ]; then
+        #       echo "Secret is configured"
+        #     else
+        #       echo "Secret is missing"
+        #     fi
             
       # - name: Simulate failure
       #   run: exit 1
