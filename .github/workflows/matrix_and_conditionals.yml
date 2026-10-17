@@ -3,6 +3,10 @@ name: Matrix and Conditionals
 on: 
   workflow_dispatch: 
 
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   matrix-job:
     runs-on: ubuntu-latest
