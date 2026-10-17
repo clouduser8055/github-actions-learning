@@ -51,7 +51,7 @@ jobs:
           MY_SECRET: ${{ secrets.MY_SECRET }}
 
         run: |
-          if $MY_SECRET:
+          if "$MY_SECRET":
             print("Secret is configured")
           else:
             print("Secret is missing")
