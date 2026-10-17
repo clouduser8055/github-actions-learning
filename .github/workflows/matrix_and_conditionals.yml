@@ -36,5 +36,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Sleep (give time to be cancelled)
-        run: sleep 100
+        run: sleep 50
         timeout-minutes: 2
