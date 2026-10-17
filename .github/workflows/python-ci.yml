@@ -6,6 +6,9 @@ on:
 env:
   APP_NAME: github-actions-learning
 
+permissions: 
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -20,6 +23,17 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v7
+
+      - name: Check Github API Access
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+        run: |
+          curl --fail --silent --show-error \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY" \
+            | python -c 'import json,sys; print("Repository:", json.load(sys.stdin)["full_name"])'
 
       - name: Set Up Python
         uses: actions/setup-python@v7
