@@ -1,0 +1,7 @@
+.git
+.github
+filters
+.venv
+__pycache__
+*.pyc
+.env
