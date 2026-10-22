@@ -37,9 +37,6 @@ jobs:
   testing-commit-sha:
     runs-on: ubuntu-latest
 
-    env:
-      hash: steps.vars.outputs.short_sha
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -49,7 +46,7 @@ jobs:
         run: echo "short_sha=${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
 
       - name: display short hash algorithm
-        run: echo "$hash"
+        run: echo "${{ steps.vars.outputs.short_sha }}"
 
       
 
