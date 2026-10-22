@@ -33,13 +33,17 @@ jobs:
           docker run --rm "$REGISTRY/$IMAGE_NAME:$GITHUB_SHA"
 
       - name: Log in to GHCR 
-        uses: docker/login-action@v4
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish Docker Image
+        if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main'}}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          echo "$GH_TOKEN" | docker login "$REGISTRY" --username "$GITHUB_ACTOR" --password-stdin
+        
+      - name: Publish Docker Image
+        if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
+        run: |
+          docker tag "$REGISTRY/$IMAGE_NAME:$GITHUB_SHA" "$REGISTRY/$IMAGE_NAME:latest"
+          
           docker push "$REGISTRY/$IMAGE_NAME:$GITHUB_SHA"
+          docker push "$REGISTRY/$IMAGE_NAME:latest"
         
