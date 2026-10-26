@@ -27,3 +27,6 @@ jobs:
       - name: Display output from producer
         run: echo "${{ needs.producer.outputs.surname }}"
 
+      - name: Display an unset output
+        run: echo "$work:-<UNSET>"
+
