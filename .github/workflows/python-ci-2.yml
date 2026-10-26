@@ -1,0 +1,32 @@
+name: Revising Python CI
+
+on: 
+  workflow_dispatch: 
+
+jobs:
+  Python-ci:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v7
+
+      - name: Python Setup
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Check failure
+        if: failure()
+        run: echo "Python setup failed!!!!"
+
+      - name: Check Success
+        if: success()
+        run: echo "Python setup is successful"
+
+      - name: run hello.py
+        run: python hello.py
