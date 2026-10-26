@@ -19,3 +19,16 @@ jobs:
 
       - name: using my created env
         run: echo "$my_last_name"
+
+      - name: using env vars from github secrets and variables
+        run: echo "Environment --> ${{ vars.APP_ENV }}"
+
+      - name: Checking secrets 
+        env:
+            MY_Secret: ${{secrets.MY_SECRET}}
+        run: |
+          if [ -n $MY_SECRET ];then
+            echo "Secret is configured"
+          else
+            echo "Secret is missing"
+          fi
