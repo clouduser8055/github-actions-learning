@@ -1,0 +1,21 @@
+name: Environment Variables and Secrets Configurations
+
+on: 
+  workflow_dispatch: 
+
+env:
+  my_name: "Anuj Nahar"
+
+jobs:
+  config:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: using global env variable
+        run: echo "This is $my_name ."
+
+      - name: creating env vars
+        run: echo "my_last_name=Nahar" >> $GITHUB_ENV
+
+      - name: using my created env
+        run: echo "$my_last_name"
