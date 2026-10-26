@@ -8,20 +8,26 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      surname: ${{ steps.status.outputs.surname }}
+      surname: ${{ steps.lastname.outputs.surname }}
+      test-status: ${{ steps.test-status.outputs.status }}
 
     steps:
       - name: Generating output
-        id: status
+        id: lastname
         run: |
           echo "surname=nahar" >> $GITHUB_OUTPUT
 
       - name: Display output
-        run: echo "${{ steps.status.outputs.surname }}"
+        run: echo "${{ steps.lastname.outputs.surname }}"
+
+      - name: Generating Status
+        id: test-status
+        run: echo "status=passed" >> $GITHUB_OUTPUT
 
   consumer:
-    runs-on: ubuntu-latest
     needs: producer
+    if: needs.producer.outputs.test-status == 'passed'
+    runs-on: ubuntu-latest
 
     steps:
       - name: Display output from producer
