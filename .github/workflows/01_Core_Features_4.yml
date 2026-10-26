@@ -28,5 +28,5 @@ jobs:
         run: echo "${{ needs.producer.outputs.surname }}"
 
       - name: Display an unset output
-        run: echo "$work:-<UNSET>"
+        run: echo "${work:-<UNSET>}"
 
