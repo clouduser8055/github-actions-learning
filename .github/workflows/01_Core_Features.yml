@@ -23,3 +23,13 @@ jobs:
         uses: actions/hello-world-javascript-action@081a6d193d1dcb38460df1e6927486d748730f9d
         with:
           who-to-greet: "ANUJ NAHAR"
+
+  Workflow-jobs-steps:
+    runs-on: ubuntu-latest
+    needs: 
+      - Say-hello-world
+      - Steps-type
+
+    steps:
+      - name: Run after the job needs
+        run: echo "finally my time has come after 2 jobs"
