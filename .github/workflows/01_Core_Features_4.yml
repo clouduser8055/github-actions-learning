@@ -1,0 +1,17 @@
+name: Passing Data
+
+on: 
+  workflow_dispatch: 
+
+jobs:
+  producer:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generating output
+        id: status
+        run: |
+          echo "surname=nahar" >> $GITHUB_OUTPUT
+
+      - name: Display output
+        run: echo "${{ steps.status.outputs.surname }}"
