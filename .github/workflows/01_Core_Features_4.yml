@@ -7,6 +7,9 @@ jobs:
   producer:
     runs-on: ubuntu-latest
 
+    outputs:
+      surname: ${{ steps.status.outputs.surname }}
+
     steps:
       - name: Generating output
         id: status
@@ -15,3 +18,12 @@ jobs:
 
       - name: Display output
         run: echo "${{ steps.status.outputs.surname }}"
+
+  consumer:
+    runs-on: ubuntu-latest
+    needs: producer
+
+    steps:
+      - name: Display output from producer
+        run: echo "${{ needs.producer.outputs.surname }}"
+
