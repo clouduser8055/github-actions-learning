@@ -28,5 +28,8 @@ jobs:
         if: success()
         run: echo "Python setup is successful"
 
+      - name: Display python version
+        run: python --version
+
       - name: run hello.py
         run: python hello.py
