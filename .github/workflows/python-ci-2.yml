@@ -7,9 +7,15 @@ jobs:
   Python-ci:
     runs-on: ubuntu-latest
 
+    env:
+      APP_NAME: github-actions-learning
+
     strategy:
       matrix:
         python-version: ["3.11", "3.12", "3.13"]
+
+    outputs:
+      test-status: ${{ steps.test-status.outputs.status }}
 
     steps:
       - name: Checkout Repo
@@ -18,9 +24,10 @@ jobs:
       - name: Python Setup
         uses: actions/setup-python@v7
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.13"
+          cache: "pip"
 
-      - name: Check failure
+      - name: failure handler
         if: failure()
         run: echo "Python setup failed!!!!"
 
@@ -31,5 +38,44 @@ jobs:
       - name: Display python version
         run: python --version
 
-      - name: run hello.py
+      - name: run python program
         run: python hello.py
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Display branch name
+        run: echo "Branch ---> ${{ github.ref_name }}"
+
+      - name: Create Report
+        run: |
+          echo "CI Pipeline Report" > report.txt
+          echo "Application: $APP_NAME" >> report.txt
+          echo "Branch: ${{ github.ref_name }}" >> report.txt
+          echo "Python version : " >> report.txt
+          python --version >> report.txt
+
+      - name: Upload report
+        uses: actions/upload-artifact@v7
+        with:
+          name: CI-Report-Python
+          path: report.txt
+
+      - name: Generate status
+        id: test-status
+        run: echo "status=success" >> "$GITHUB_OUTPUT"
+
+  python-ci-report:
+    needs: Python-ci
+    if: needs.Python-ci.outputs.test-status == 'success'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download report
+        uses: actions/download-artifact@v8
+        with:
+          path: report.txt
+
+      - name: Display report
+        run: cat report.txt
+
