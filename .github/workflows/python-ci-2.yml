@@ -74,7 +74,7 @@ jobs:
       - name: Download report
         uses: actions/download-artifact@v8
         with:
-          path: report.txt
+          path: reports
 
       - name: Display report
         run: cat report.txt
