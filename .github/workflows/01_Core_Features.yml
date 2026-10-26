@@ -1,0 +1,25 @@
+name: Exploiting Core Features
+
+on: 
+  workflow_dispatch: 
+
+jobs:
+  Say-hello-world:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello World! from inline bash script of core features workflow"
+
+  Steps-type:
+    runs-on: ubuntu-latest
+    steps:
+      - name: hello from bash
+        run: echo "Hello from inline bash"
+      
+      - name: hello from python shell
+        run: print("Hello from python")
+        shell: python
+
+      - name: hello by javacript actions
+        uses: actions/hello-world-javascript-action@081a6d193d1dcb38460df1e6927486d748730f9d
+        with:
+          who-to-greet: "ANUJ NAHAR"
