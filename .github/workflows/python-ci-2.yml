@@ -10,9 +10,9 @@ jobs:
     env:
       APP_NAME: github-actions-learning
 
-    strategy:
-      matrix:
-        python-version: ["3.11", "3.12", "3.13"]
+    # strategy:
+    #   matrix:
+    #     python-version: ["3.11", "3.12", "3.13"]
 
     outputs:
       test-status: ${{ steps.test-status.outputs.status }}
@@ -24,7 +24,7 @@ jobs:
       - name: Python Setup
         uses: actions/setup-python@v7
         with:
-          python-version: "3.13"
+          python-version: 3.13
           cache: "pip"
 
       - name: failure handler
