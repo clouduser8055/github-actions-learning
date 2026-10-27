@@ -14,3 +14,6 @@ jobs:
         with:
           aws-region: ap-south-1
           role-to-assume: arn:aws:iam::236898859222:role/github-actions-learning-role
+
+      - name: Verify AWS connection
+        run: aws sts get-caller-identity
