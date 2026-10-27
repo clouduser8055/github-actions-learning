@@ -10,9 +10,9 @@ jobs:
     env:
       APP_NAME: github-actions-learning
 
-    # strategy:
-    #   matrix:
-    #     python-version: ["3.11", "3.12", "3.13"]
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
 
     outputs:
       test-status: ${{ steps.test-status.outputs.status }}
@@ -24,7 +24,7 @@ jobs:
       - name: Python Setup
         uses: actions/setup-python@v7
         with:
-          python-version: 3.13
+          python-version: ${{ matrix.python-version }}
           cache: "pip"
 
       - name: failure handler
@@ -49,17 +49,17 @@ jobs:
 
       - name: Create Report
         run: |
-          echo "CI Pipeline Report" > report.txt
-          echo "Application: $APP_NAME" >> report.txt
-          echo "Branch: ${{ github.ref_name }}" >> report.txt
-          echo "Python version : " >> report.txt
-          python --version >> report.txt
+          echo "CI Pipeline Report" > report-${{ matrix.python-version }}.txt
+          echo "Application: $APP_NAME" >> report-${{ matrix.python-version }}.txt
+          echo "Branch: ${{ github.ref_name }}" >> report-${{ matrix.python-version }}.txt
+          echo "Python version : " >> report-${{ matrix.python-version }}.txt
+          python --version >> report-${{ matrix.python-version }}.txt
 
       - name: Upload report
         uses: actions/upload-artifact@v7
         with:
-          name: CI-Report-Python
-          path: report.txt
+          name: CI-Report-Python-${{ matrix.python-version }}
+          path: report-${{ matrix.python-version }}.txt
 
       - name: Generate status
         id: test-status
@@ -74,8 +74,18 @@ jobs:
       - name: Download report
         uses: actions/download-artifact@v8
         with:
+          pattern: CI-Report-Python-*
           path: reports
+          merge-multiple: true
 
       - name: Display report
-        run: cat reports/report.txt
+        run: |
+          echo "Downloading reports...."
+          ls -la
+          echo ""
+          for file in reports/*;do
+            echo "======$file======"
+            cat $file
+            echo ""
+          done
 
