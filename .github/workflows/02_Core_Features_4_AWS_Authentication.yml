@@ -28,7 +28,7 @@ jobs:
       - name: "Configure AWS Credentials - AWS GitHub Actions"
         uses: aws-actions/configure-aws-credentials@v6.3.0
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: arn:aws:iam::236898859222:role/github-actions-role
           aws-region: ap-south-1
 
       - name: Display aws cli version
