@@ -14,10 +14,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name: Setup AWS CLI
-        run: |
-          sudo apt-get update -qq
-          sudo ./aws/install
+      # - name: Setup AWS CLI
+      #   run: |
+      #     sudo apt-get update -qq
+      #     sudo ./aws/install
 
       - name: Display aws cli version
         run: aws --version
