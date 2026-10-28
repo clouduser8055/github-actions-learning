@@ -19,6 +19,12 @@ jobs:
     permissions: 
       id-token: write
     steps:
+      - name: Debug GitHub OIDC Context
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "Expected sub claim: repo:${{ github.repository }}:ref:${{ github.ref }}"
+          
       - name: "Configure AWS Credentials - AWS GitHub Actions"
         uses: aws-actions/configure-aws-credentials@v6.3.0
         with:
