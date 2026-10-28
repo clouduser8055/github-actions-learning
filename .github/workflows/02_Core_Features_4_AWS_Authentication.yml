@@ -4,15 +4,16 @@ on:
   workflow_dispatch: 
 
 jobs:
-  auth-to-aws-static:
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Configure AWS Credentials static"
-        uses: aws-actions/configure-aws-credentials@v6.3.0
-        with:
-          aws-region: ap-south-1
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  # Not to Use
+  # auth-to-aws-static:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: "Configure AWS Credentials static"
+  #       uses: aws-actions/configure-aws-credentials@v6.3.0
+  #       with:
+  #         aws-region: ap-south-1
+  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   auth-to-aws-oidc:
     runs-on: ubuntu-latest
@@ -29,7 +30,7 @@ jobs:
       - name: "Configure AWS Credentials - AWS GitHub Actions"
         uses: aws-actions/configure-aws-credentials@v6.3.0
         with:
-          role-to-assume: arn:aws:iam::236898859222:role/github-actions-role
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ap-south-1
 
       - name: Display aws cli version
