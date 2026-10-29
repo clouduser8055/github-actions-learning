@@ -19,11 +19,14 @@ jobs:
         exclude:
           - number: 1
             letter: c
+          - number: 2
+            letter: a
 
     timeout-minutes: 5
 
     steps:
       - name: display combinations
         run: |
-          echo "Number: ${{ matrix.number }}"
-          echo "Letter: ${{ matrix.letter }}"
+          echo "Number: ${{ matrix.number }}, Letter: ${{ matrix.letter }}"
+
+      
