@@ -22,8 +22,18 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          
-          n=${LENGTH:-2}
+
+          n="${LENGTH:-2}"
+
+          if ! [[ "$n" =~ ^[1-9][0-9]*$ ]]; then
+            echo "Error: length must be a positive integer."
+            exit 1
+          fi
+
+          if (( n > 20 )); then
+            echo "Error: maximum length is 20."
+            exit 1
+          fi
 
           include_json=$(
             {
