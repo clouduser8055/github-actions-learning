@@ -44,7 +44,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include: ${{ fromJson(needs.generate-matrix.outputs.include) }}
+        include: ${{ fromJSON(needs.generate-matrix.outputs.include) }}
     steps:
       - name: Use matrix values (paired random)
         run: echo "Matrix - First=${{ matrix.first }}, Second=${{ matrix.second }}"
