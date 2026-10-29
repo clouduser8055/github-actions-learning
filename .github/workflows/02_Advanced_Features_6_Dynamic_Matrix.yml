@@ -12,7 +12,7 @@ jobs:
   generate-matrix:
     runs-on: ubuntu-latest
     outputs:
-      include: steps.gen.outputs.include
+      include: ${{ steps.gen.outputs.include }}
 
     steps:
       - name: Generate paired list
