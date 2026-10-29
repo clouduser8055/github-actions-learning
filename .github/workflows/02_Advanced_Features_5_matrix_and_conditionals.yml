@@ -13,6 +13,7 @@ jobs:
 
     strategy:
       fail-fast: true
+      max-parallel: 2
       matrix:
         number: [1, 2]
         letter: [a, b, c]
@@ -28,5 +29,16 @@ jobs:
       - name: display combinations
         run: |
           echo "Number: ${{ matrix.number }}, Letter: ${{ matrix.letter }}"
+
+      - name: Run everywhere except 2c
+        if: ${{ ! (matrix.number == 2 && matrix.letter == 'c' ) }}
+        run: echo "This step is for combination of --> ${{ matrix.number }}${{ matrix.letter }}"
+
+  sleep-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sleep for 100 seconds
+        run: sleep 100
+        timeout-minutes: 2
 
       
