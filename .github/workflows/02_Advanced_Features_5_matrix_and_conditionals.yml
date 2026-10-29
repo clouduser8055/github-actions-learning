@@ -23,18 +23,7 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - name: Echo number and letter
+      - name: display combinations
         run: |
           echo "Number: ${{ matrix.number }}"
           echo "Letter: ${{ matrix.letter }}"
-
-      - name: Run every combo except 2c
-        if: ${{ ! (matrix.number == 2 && matrix.letter == 'c') }}
-        run: echo "This step runs for ${{matrix.number}}${{matrix.letter}}"
-
-  sleep-job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Sleep (give time to be cancelled)
-        run: sleep 50
-        timeout-minutes: 2
