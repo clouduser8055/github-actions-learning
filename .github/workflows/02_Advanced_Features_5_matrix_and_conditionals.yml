@@ -39,6 +39,6 @@ jobs:
     steps:
       - name: Sleep for 100 seconds
         run: sleep 100
-        timeout-minutes: 2
+        timeout-minutes: 1
 
       
