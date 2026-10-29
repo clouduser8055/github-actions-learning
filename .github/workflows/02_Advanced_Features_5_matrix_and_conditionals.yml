@@ -37,7 +37,7 @@ jobs:
   sleep-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Sleep for 100 seconds
+      - name: Sleep for 100 seconds(it has to be fail)
         run: sleep 100
         timeout-minutes: 1
 
