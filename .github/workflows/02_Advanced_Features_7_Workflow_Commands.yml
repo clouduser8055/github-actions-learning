@@ -50,6 +50,7 @@ jobs:
           echo "$marker"
           echo "::$marker::"
           echo "::notice title=processed::The Process is Resumed"
+          echo "$marker"
 
       
 
