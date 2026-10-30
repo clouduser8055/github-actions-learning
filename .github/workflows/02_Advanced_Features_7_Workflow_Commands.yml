@@ -46,12 +46,22 @@ jobs:
         run: |
           marker="END_RAW_OUTPUT"
           echo "::stop-commands::$marker"
-          echo "::error::This is an error"
-          echo "$marker"
+          echo "::error::This is an error but not rendered as an error"
           echo "::$marker::"
           echo "::notice title=processed::The Process is Resumed"
-          echo "$marker"
 
-      
+      - name: Set an environment variable
+        run: echo "BUILD_ID=$(date +%s)" >> "$GITHUB_ENV"
+
+      - name: Set a step output variable
+        id: pick-color
+        run: echo "choice=pink" >> "$GITHUB_OUTPUT"
+
+      - name: Append to step summary
+        run: |
+          echo "### Build completed" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Build ID: $BUILD_ID" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Colour: ${{ steps.pick-color.outputs.choice }}" >> "$GITHUB_STEP_SUMMARY"
+          
 
       
