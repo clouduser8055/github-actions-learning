@@ -32,8 +32,15 @@ jobs:
       - name: Grouped logs
         run: |
           echo "::group::This is a group of logs"
-          echo "Hello from within the gourp!"
+          echo "Hello from within the group!"
           echo "::endgroup::"
+
+      - name: Mask a value
+        env:
+          FOO: "bar"
+        run: |
+          echo "::add-mask::$FOO"
+          echo "FOO is $FOO"
 
       
 
