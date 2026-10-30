@@ -46,8 +46,9 @@ jobs:
         run: |
           marker="END_RAW_OUTPUT"
           echo "::stop-commands::$marker"
+          echo "::error::This is an error"
           cat app.py
-          # echo "::$marker::"
+          echo "::$marker::"
           echo "::notice title=processed::The Process is Resumed"
 
       
