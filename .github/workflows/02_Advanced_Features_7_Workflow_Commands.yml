@@ -62,14 +62,18 @@ jobs:
           echo "### Build completed" >> "$GITHUB_STEP_SUMMARY"
           echo "- Build ID: $BUILD_ID" >> "$GITHUB_STEP_SUMMARY"
           echo "- Colour: ${{ steps.pick-color.outputs.choice }}" >> "$GITHUB_STEP_SUMMARY"
-      
-      - name: check path
-        run: echo "$PATH"
 
       - name: Add custom path
         run: echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
-      - name: again check path
-        run: echo "$PATH"
+      - name: Use env, output, and PATH
+        env:
+          CHOSEN_COLOUR: ${{ steps.pick-color.outputs.choice}}
+        run: |
+          echo "Current PATH is:"
+          echo "$PATH"
+          echo ""
+          echo "Build Id is $BUILD_ID"
+          echo "Chosen color is $CHOSEN_COLOUR"
 
       
