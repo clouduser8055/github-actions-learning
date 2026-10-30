@@ -20,6 +20,7 @@ jobs:
           file=".github/workflows/02_Advanced_Features_7_Workflow_Commands.yml"
           echo "::notice file=$file,line=23::By specifying a line (and optionally a column) the notice is linked to the source file"
 
-          
+          echo "::notice title=message::learning log annotations"
+
 
       
