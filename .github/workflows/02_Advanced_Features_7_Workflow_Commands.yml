@@ -24,5 +24,10 @@ jobs:
 
           echo "::error title=test failed::Units test reported a failure!"
 
+      - name: Validate application
+        run: |
+          echo "::error title=Validation::Application Validation Failed"
+          exit 1
+
 
       
