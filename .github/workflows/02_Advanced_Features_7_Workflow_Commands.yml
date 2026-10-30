@@ -24,10 +24,17 @@ jobs:
 
           echo "::error title=test failed::Units test reported a failure!"
 
-      - name: Validate application
-        run: |
-          echo "::error title=Validation::Application Validation Failed"
-          exit 1
+      # - name: Validate application
+      #   run: |
+      #     echo "::error title=Validation::Application Validation Failed"
+      #     exit 1
 
+      - name: Grouped logs
+        run: |
+          echo "::group::This is a group of logs"
+          echo "Hello from within the gourp!"
+          echo "::endgroup::"
+
+      
 
       
