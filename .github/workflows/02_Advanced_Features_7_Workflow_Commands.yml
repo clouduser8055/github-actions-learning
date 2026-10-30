@@ -42,6 +42,14 @@ jobs:
           echo "::add-mask::$FOO"
           echo "FOO is $FOO"
 
+      - name: Stop & resume workflow commands
+        run: |
+          marker="END_RAW_OUTPUT"
+          echo "::stop-commands::$marker"
+          cat app.py
+          echo "::$marker::"
+          echo "::notice title=processed::The Process is Resumed"
+
       
 
       
