@@ -10,16 +10,24 @@ jobs:
       - uses: actions/checkout@v7
 
       - name: Python setup using composite action
-        id: python-setup
+        id: python-env
         uses: ./.github/actions/setup-python-environment
         with:
           python-version: 3.13
           requirements-file: requirements.txt
           install-dependencies: "true"
 
-      - name: Display Python version
+      - name: Display Action outputs
+      
+        env:
+          PYTHON_VERSION: ${{ steps.python-env.outputs.python-version }}
+          PYTHON_EXECUTABLE: ${{ steps.python-env.outputs.python-executable }}
+          DEPENDENCIES_INSTALLED: ${{ steps.python-env.outputs.dependencies-installed }}
+
         run: |
-          echo "Python version: ${{ steps.python-setup.outputs.python-version }}"
+          echo "Python Version: $PYTHON_VERSION"
+          echo "Python Executable: $PYTHON_EXECUTABLE"
+          echo "Dependencies Installed: $DEPENDENCIES_INSTALLED"
 
       - name: Run python application
         run: python hello.py
