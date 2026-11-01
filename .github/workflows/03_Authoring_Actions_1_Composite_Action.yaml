@@ -7,9 +7,9 @@ jobs:
   job-1:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v7
       - name: Python setup using composite action
         uses: ./.github/actions/setup-python-environment
         with:
           python-version: 3.12
           requirements-file: requirements.txt
-          
