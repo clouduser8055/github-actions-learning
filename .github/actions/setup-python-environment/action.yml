@@ -13,6 +13,11 @@ inputs:
     required: false
     default: "requirements.txt"
 
+  install-dependencies:
+    description: Whether to intall python dependencies
+    required: false
+    default: "true"
+
 outputs:
   python-version:
     description: Installed Python version
@@ -28,6 +33,7 @@ runs:
         python-version: ${{ inputs.python-version }}
 
     - name: Install dependencies
+      if: ${{ inputs.install-dependencies }}
       shell: bash
 
       env:
