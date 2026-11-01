@@ -13,12 +13,12 @@ jobs:
         id: python-env
         uses: ./.github/actions/setup-python-environment
         with:
-          python-version: 3.13
+          python-version: 3.12
           requirements-file: requirements.txt
-          install-dependencies: "true"
+          install-dependencies: "false"
 
       - name: Display Action outputs
-      
+
         env:
           PYTHON_VERSION: ${{ steps.python-env.outputs.python-version }}
           PYTHON_EXECUTABLE: ${{ steps.python-env.outputs.python-executable }}
