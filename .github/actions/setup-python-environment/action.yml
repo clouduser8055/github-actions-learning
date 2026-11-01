@@ -45,8 +45,6 @@ runs:
       run: |
         set -euo pipefail
 
-        echo "Validating inputs......"
-
         if [[ -z "$PYTHON_VERSION" ]];then
           echo "::error::Python version cannot be empty!"
           exit 1
@@ -78,7 +76,7 @@ runs:
               echo "::error::Requirements file not found!"
               exit 1
             fi
-          fi
+        fi
 
         echo "ALL INPUTS VALIDATED SUCCESSFULLY!"
 
