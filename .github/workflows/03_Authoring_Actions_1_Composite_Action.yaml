@@ -13,9 +13,9 @@ jobs:
         id: python-env
         uses: ./.github/actions/setup-python-environment
         with:
-          python-version: 3.12
+          python-version: hello
           requirements-file: requirements.txt
-          install-dependencies: "false"
+          install-dependencies: "true"
 
       - name: Display Action outputs
 
