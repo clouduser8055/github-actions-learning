@@ -15,6 +15,7 @@ jobs:
         with:
           python-version: 3.13
           requirements-file: requirements.txt
+          install-dependencies: "false"
 
       - name: Display Python version
         run: |
