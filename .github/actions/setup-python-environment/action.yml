@@ -33,7 +33,7 @@ runs:
         python-version: ${{ inputs.python-version }}
 
     - name: Install dependencies
-      if: ${{ inputs.install-dependencies }}
+      if: ${{ (inputs.install-dependencies == 'true') }}
       shell: bash
 
       env:
