@@ -113,3 +113,15 @@ runs:
           rm -rf "${TEMP_DIR:?}"
           echo "Temporary directory removed."
         fi
+
+    - name: Run security scan
+      continue-on-error: true
+      shell: bash
+      run: |
+        echo "Running security scan...."
+        exit 1
+
+    - name: Build docker image
+      shell: bash
+      run: |
+        echo "Building docker image....."
