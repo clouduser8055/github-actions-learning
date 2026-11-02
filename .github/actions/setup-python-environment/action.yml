@@ -87,3 +87,29 @@ runs:
       run: |
         echo "::error::Python environment setup failed."
         echo "::error::Check the previous steps for the root cause."
+
+    - name: Create temporary directory
+      id: temp
+
+      shell: bash
+
+      run: |
+        temp_dir=$(mktemp -d)
+        echo "Directory=$temp_dir" >> "$GITHUB_OUTPUT"
+
+    - name: Perform operation
+      shell: bash
+      run: echo "Performing operation....."
+
+    - name: Cleanup Temporary Directory
+      if: ${{ always() }}
+      shell: bash
+
+      env:
+        TEMP_DIR: ${{ steps.temp.outputs.Directory }}
+
+      run: |
+        if [[ -n "$TEMP_DIR" && -d "$TEMP_DIR" ]];then
+          rm -rf "${TEMP_DIR:?}"
+          echo "Temporary directory removed."
+        fi
