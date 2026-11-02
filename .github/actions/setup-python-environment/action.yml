@@ -115,6 +115,7 @@ runs:
         fi
 
     - name: Run security scan
+      id: security-scan
       continue-on-error: true
       shell: bash
       run: |
@@ -125,3 +126,24 @@ runs:
       shell: bash
       run: |
         echo "Building docker image....."
+
+    - name: Report security scan
+      if: ${{ always() }}
+
+      shell: bash
+
+      env:
+        SCAN_OUTCOME: ${{ steps.security-scan.outcome }}
+        SCAN_CONCLUSION: ${{ steps.security-scan.conclusion }} 
+
+      run: |
+        echo "security scan result: $SCAN_OUTCOME"
+        echo "security scan conclusion: $SCAN_CONCLUSION"
+
+        if [[ "$SCAN_OUTCOME" == "failure" ]];then
+          echo "::warning::Security scan found a problem."
+        fi
+
+        if [[ "$SCAN_CONCLUSION" == "success" ]];then
+          echo "::warning::Security scan conclusion found!"
+        fi
