@@ -13,8 +13,8 @@ jobs:
         id: python-env
         uses: ./.github/actions/setup-python-environment
         with:
-          python-version: hello
-          requirements-file: requirements.txt
+          python-version: 3.13
+          requirements-file: 
           install-dependencies: "false"
 
       - name: Display Action outputs
