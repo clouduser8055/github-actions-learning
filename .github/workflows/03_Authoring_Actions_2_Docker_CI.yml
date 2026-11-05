@@ -1,0 +1,43 @@
+name: Composite Action - Docker CI
+
+on: 
+  workflow_dispatch: 
+
+jobs:
+  job-1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Docker CI setup
+        id: docker-env
+        uses: ./.github/actions/setup-docker-buildx
+        with:
+          enable-qemu: "true"
+          qemu-platforms: "arm64"
+          builder-name: "github-actions-builder"
+
+      - name: Display returned outputs
+        env:
+          BUILDER_NAME: ${{ steps.docker-env.outputs.builder-name }}
+          BUILDER_DRIVER: ${{ steps.docker-env.outputs.builder-driver }}
+          BUILDER_PLATFORMS: ${{ steps.docker-env.outputs.builder-platforms }}
+          QEMU_PLATFORMS: ${{ steps.docker-env.outputs.qemu-platforms }}
+
+        run: |
+          echo "Builder: $BUILDER_NAME"
+          echo "Driver: $BUILDER_DRIVER"
+          echo "Platforms: $BUILDER_PLATFORMS"
+          echo "QEMU: $QEMU_PLATFORMS"
+
+      - name: Verify Docker Buildx
+        env:
+          BUILDER_NAME: ${{ steps.docker-env.outputs.builder-name }}
+        run: |
+          docker buildx version
+          docker buildx ls
+          docker buildx inspect "$BUILDER_NAME" --bootstrap
+          
+
+
+      

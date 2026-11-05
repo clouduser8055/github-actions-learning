@@ -1,0 +1,83 @@
+name: Setup Docker Build Environment
+
+description: Configure QEMU and Docker Buildx.
+
+inputs:
+  enable-qemu:
+    description: Enable QEMU emulation
+    required: false
+    default: "false"
+
+  qemu-platforms:
+    description: Platform to enable through QEMU
+    required: false
+    default: "arm64"
+  
+  builder-name:
+    description: Name of the Docker Buildx builder
+    required: false
+    default: "ci-builder"
+
+outputs:
+  builder-name:
+    description: Name of the Docker Buildx
+    value: ${{ steps.buildx.outputs.name }}
+
+  builder-driver:
+    description: Buildx builder driver
+    value: ${{ steps.buildx.outputs.driver }}
+  
+  builder-platforms:
+    description: Supported Buildx Platforms
+    value: ${{ steps.buildx.outputs.platforms }}
+  
+  qemu-platforms:
+    description: QEMU Platforms enabled
+    value: ${{ steps.buildx.outputs.platforms  || 'not-enabled'}}
+
+runs:
+  using: composite
+
+  steps:
+    - name: Validate inputs
+      shell: bash
+      env:
+        ENABLE_QEMU: ${{ inputs.enable-qemu }}
+        BUILDER_NAME: ${{ inputs.builder-name }}
+        ACTION_PATH: ${{ github.action_path }}
+      run: |
+        bash "$ACTION_PATH/scripts/validate.sh"
+    
+    - name: Setup QEMU
+      id: qemu
+      if: ${{ inputs.enable-qemu == 'true' }}
+      
+      uses: docker/setup-qemu-action@v4
+      with:
+        platforms: ${{ inputs.qemu-platforms }}
+
+    - name: Setup Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v4
+      with:
+        name: ${{ inputs.builder-name }}
+
+    - name: Display Docker Builder Information
+      shell: bash
+
+      env:
+        BUILDER_NAME: ${{ steps.buildx.outputs.name }}
+        BUILDER_DRIVER: ${{ steps.buildx.outputs.driver }}
+        BUILDER_PLATFORMS: ${{ steps.buildx.outputs.platforms }}
+        QEMU_PLATFORMS: ${{ steps.qemu.outputs.platforms }}
+
+      run: |
+        echo "Docker Buildx Setup Completed!"
+
+        echo "Builder Name: $BUILDER_NAME"
+        echo "Builder Driver: $BUILDER_DRIVER"
+        echo "Builder Platforms: $BUILDER_PLATFORMS"
+
+        echo "QEMU Platforms: ${QEMU_PLATFORMS:-not enabled}"
+
+
