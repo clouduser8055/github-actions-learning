@@ -35,9 +35,11 @@ jobs:
           BUILDER_NAME: ${{ steps.docker-env.outputs.builder-name }}
         run: |
           docker buildx version
+          echo ""
           docker buildx ls
+          echo ""
           docker buildx inspect "$BUILDER_NAME" --bootstrap
-          
+
 
 
       
