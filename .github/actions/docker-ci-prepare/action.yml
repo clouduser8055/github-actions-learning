@@ -32,6 +32,14 @@ outputs:
     description: Docker context validation result
     value: ${{ steps.context.outputs.validated }}
 
+  dockerfile-absolute-path:
+    description: Resolved Dockerfile path
+    value: ${{ steps.context.outputs.dockerfile-absolute-path }}
+
+  build-context-absolute-path:
+    description: Resolved build context
+    value: ${{ steps.context.outputs.build-context-absolute-path }}
+
   builder-name:
     description: Docker Buildx builder name
     value: ${{ steps.builder.outputs.builder-name }}

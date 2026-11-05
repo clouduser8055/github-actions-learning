@@ -66,10 +66,16 @@ jobs:
 
       - name: Build Docker Image
         env:
-          DOCKERFILE_PATH: Dockerfile
-          BUILD_CONTEXT: "."
-        run: | 
-          docker buildx build --platform linux/amd64 --load --tag local/python-app:ci .
+          DOCKERFILE_PATH: ${{ steps.docker-ci.outputs.dockerfile-absolute-path }}
+          BUILD_CONTEXT: ${{ steps.docker-ci.outputs.build-context-absolute-path }}
+
+        run: |
+          docker buildx build \
+            --file "$DOCKERFILE_PATH" \
+            --platform linux/amd64 \
+            --load \
+            --tag local/python-app:ci \
+            "$BUILD_CONTEXT"
 
       - name: Verify Docker Image
         run: |

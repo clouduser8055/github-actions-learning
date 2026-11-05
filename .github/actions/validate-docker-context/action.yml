@@ -1,21 +1,30 @@
+
 name: Validate Docker Context
-description: Validate Dockerfile and Build Context.
+description: Validate Dockerfile and build context.
 
 inputs:
   dockerfile-path:
-    description: Dockerfile location 
+    description: Dockerfile location
     required: false
     default: Dockerfile
 
   build-context:
-    description: Docker build context directory
+    description: Docker build context
     required: false
     default: "."
 
 outputs:
   validated:
-    description: Whether Docker context validation succeeded.
+    description: Validation result
     value: ${{ steps.validate.outputs.validated }}
+
+  dockerfile-absolute-path:
+    description: Resolved Dockerfile path
+    value: ${{ steps.validate.outputs.dockerfile }}
+
+  build-context-absolute-path:
+    description: Resolved build context
+    value: ${{ steps.validate.outputs.context }}
 
 runs:
   using: composite
@@ -24,29 +33,58 @@ runs:
     - name: Validate Docker Configuration
       id: validate
       shell: bash
-      
+
       env:
-        DOCKERFILE_PATH: ${{ inputs.dockerfile-path}}
+        DOCKERFILE_PATH: ${{ inputs.dockerfile-path }}
         BUILD_CONTEXT: ${{ inputs.build-context }}
+        WORKSPACE: ${{ github.workspace }}
 
       run: |
-        #!/usr/bin/env bash
-
         set -euo pipefail
 
-        if [[ -f "$DOCKERFILE_PATH" ]];then
-          echo "::error::Dockerfile Not Found!!"
+        echo "Starting Docker validation..."
+
+        # Resolve Dockerfile path against repository workspace
+        if [[ "$DOCKERFILE_PATH" == /* ]]; then
+          dockerfile="$DOCKERFILE_PATH"
+        else
+          dockerfile="$WORKSPACE/$DOCKERFILE_PATH"
+        fi
+
+        # Resolve build context against repository workspace
+        if [[ "$BUILD_CONTEXT" == /* ]]; then
+          context="$BUILD_CONTEXT"
+        else
+          context="$WORKSPACE/$BUILD_CONTEXT"
+        fi
+
+        echo "Workspace: $WORKSPACE"
+        echo "Dockerfile: $dockerfile"
+        echo "Build context: $context"
+
+        # Check Dockerfile
+        if [[ ! -f "$dockerfile" ]]; then
+          echo "::error::Dockerfile not found: $dockerfile"
+
+          echo "Workspace contents:"
+          ls -la "$WORKSPACE"
+
+          echo "Searching for Dockerfiles:"
+          find "$WORKSPACE" -maxdepth 4 -type f \
+            \( -iname 'Dockerfile' -o -iname '*.dockerfile' \) -print
+
           exit 1
         fi
 
-        if [[ -d "$BUILD_CONTEXT" ]];then
-          echo "::error::Build context directory not found!!!"
+        # Check build context
+        if [[ ! -d "$context" ]]; then
+          echo "::error::Build context not found: $context"
           exit 1
         fi
 
-        echo "Dockerfile: $DOCKERFILE_PATH"
-        echo "Build context: $BUILD_CONTEXT"
-
+        # Return outputs
         echo "validated=true" >> "$GITHUB_OUTPUT"
+        echo "dockerfile=$dockerfile" >> "$GITHUB_OUTPUT"
+        echo "context=$context" >> "$GITHUB_OUTPUT"
 
-        echo "Docker Configuration Validated Successfully."
+        echo "Docker configuration validated successfully!"
