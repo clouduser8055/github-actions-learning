@@ -29,7 +29,7 @@ jobs:
 
         uses: $/.github/actions/docker-ci-prepare
         with:
-          dockerfile-path: Dockerfile
+          dockerfile-path: github-actions-learning/Dockerfile
           build-context: "."
 
           enable-qemu: "false"
