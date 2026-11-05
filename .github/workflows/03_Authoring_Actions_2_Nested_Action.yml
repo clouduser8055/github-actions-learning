@@ -1,7 +1,10 @@
-name: Composite Action - Docker CI
+name: Nested Action - Docker CI
 
 on: 
   workflow_dispatch: 
+
+permissions: 
+  contents: read
 
 jobs:
   job-1:
@@ -9,26 +12,31 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Docker CI setup
+      - name: Prepare Docker CI
         id: docker-env
-        uses: ./.github/actions/setup-docker-buildx
+
+        uses: $/.github/actions/docker-ci-prepare
         with:
+          dockerfile-path: Dockerfile
+          build-context: "."
+
           enable-qemu: "false"
           qemu-platforms: "arm64"
-          builder-name: "github-actions-builder"
 
-      - name: Display returned outputs
+          builder-name: porfolio-builder
+
+      - name: Display Docker CI result
         env:
+          VALIDATED: ${{ steps.docker-env.outputs.context-validated }}
           BUILDER_NAME: ${{ steps.docker-env.outputs.builder-name }}
           BUILDER_DRIVER: ${{ steps.docker-env.outputs.builder-driver }}
           BUILDER_PLATFORMS: ${{ steps.docker-env.outputs.builder-platforms }}
-          QEMU_PLATFORMS: ${{ steps.docker-env.outputs.qemu-platforms }}
 
         run: |
+          echo "Context validated: $VALIDATED"
           echo "Builder: $BUILDER_NAME"
           echo "Driver: $BUILDER_DRIVER"
           echo "Platforms: $BUILDER_PLATFORMS"
-          echo "QEMU: $QEMU_PLATFORMS"
 
       - name: Verify Docker Buildx
         env:
@@ -39,6 +47,14 @@ jobs:
           docker buildx ls
           echo " "
           docker buildx inspect "$BUILDER_NAME" --bootstrap
+
+      - name: Build Docker Image
+        run: | 
+          docker buildx build --platform linux/amd64 --load --tag local/python-app:ci .
+
+      - name: Verify Docker Image
+        run: |
+          docker image inspect local/python-app:ci
 
 
 

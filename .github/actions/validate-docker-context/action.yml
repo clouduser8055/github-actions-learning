@@ -1,0 +1,52 @@
+name: Validate Docker Context
+description: Validate Dockerfile and Build Context.
+
+inputs:
+  dockerfile-path:
+    description: Dockerfile location 
+    required: false
+    default: Dockerfile
+
+  build-context:
+    description: Docker build context directory
+    required: false
+    default: "."
+
+outputs:
+  validated:
+    description: Whether Docker context validation succeeded.
+    value: ${{ steps.validate.outputs.validated }}
+
+runs:
+  using: composite
+
+  steps:
+    - name: Validate Docker Configuration
+      id: validate
+      shell: bash
+      
+      env:
+        DOCKERFILE_PATH: ${{ inputs.dockerfile-path}}
+        BUILD_CONTEXT: ${{ inputs.build-context }}
+
+      run: |
+        #!/usr/bin/env bash
+
+        set -euo pipefail
+
+        if [[ -f "$DOCKERFILE_PATH" ]];then
+          echo "::error::Dockerfile Not Found!!"
+          exit 1
+        fi
+
+        if [[ -d "$BUILD_CONTEXT" ]];then
+          echo "::error::Build context directory not found!!!"
+          exit 1
+        fi
+
+        echo "Dockerfile: $DOCKERFILE_PATH"
+        echo "Build context: $BUILD_CONTEXT"
+
+        echo "validated=true" >> "$GITHUB_OUTPUT"
+
+        echo "Docker Configuration Validated Successfully."

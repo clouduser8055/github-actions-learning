@@ -1,0 +1,82 @@
+name: Docker CI Preparation
+description: Validate Docker configuration and prepare Buildx.
+
+inputs:
+  dockerfile-path:
+    description: Dockerfile location
+    required: false
+    default: Dockerfile
+
+  build-context:
+    description: Docker build context
+    required: false
+    default: "."
+
+  enable-qemu:
+    description: Enable QEMU emulation
+    required: false
+    default: "false"
+
+  qemu-platforms:
+    description: QEMU platforms
+    required: false
+    default: arm64
+
+  builder-name:
+    description: Docker builder name
+    required: false
+    default: ci-builder
+
+outputs:
+  context-validated:
+    description: Docker context validation result
+    value: ${{ steps.context.outputs.validated }}
+
+  builder-name:
+    description: Docker Buildx builder name
+    value: ${{ steps.builder.outputs.builder-name }}
+
+  builder-driver:
+    description: Docker Buildx driver
+    value: ${{ steps.builder.outputs.builder-driver }}
+
+  builder-platforms:
+    description: Supported Docker platforms
+    value: ${{ steps.builder.outputs.builder-platforms }}
+
+runs:
+  using: composite
+
+  steps:
+    - name: Validate Docker Context
+      id: context
+      uses: $/.github/actions/validate-docker-context
+      with:
+        dockerfile-path: ${{ inputs.dockerfile-path }}
+        build-context: ${{ inputs.build-context }}
+
+    - name: Setup Docker Buildx
+      id: builder
+      uses: $/.github/actions/setup-docker-buildx
+      with:
+        enable-qemu: ${{ inputs.enable-qemu }}
+        qemu-platforms: ${{ inputs.qemu-platforms }}
+        builder-name: ${{ inputs.builder-name }}
+
+    - name: Display Docker CI Information
+      shell: bash
+
+      env:
+        CONTEXT-VALIDATED: ${{ steps.context.outputs.validated }}
+        BUILDER-NAME: ${{ steps.builder.outputs.builder-name }}
+        BUILDER-DRIVER: ${{ steps.builder.outputs.builder-driver }}
+        BUILDER-PLATFORMS: ${{ steps.builder.outputs.builder-platforms }}
+
+      run: |
+        echo "Docker CI Preparation Completed!"
+
+        echo "Context Validated: $DOCKERFILE_VALIDATED"
+        echo "Builder Name: $BUILDER_NAME"
+        echo "Builder Driver: $BUILDER_DRIVER"
+        echo "Builder Platforms: $BUILDER_PLATFORMS"
+    
