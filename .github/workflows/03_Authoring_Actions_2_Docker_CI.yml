@@ -13,7 +13,7 @@ jobs:
         id: docker-env
         uses: ./.github/actions/setup-docker-buildx
         with:
-          enable-qemu: "true"
+          enable-qemu: "false"
           qemu-platforms: "arm64"
           builder-name: "github-actions-builder"
 
