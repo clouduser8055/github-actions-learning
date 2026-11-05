@@ -29,7 +29,7 @@ jobs:
 
         uses: $/.github/actions/docker-ci-prepare
         with:
-          dockerfile-path: Dockerfile
+          dockerfile-path: "Dockerfile"
           build-context: "."
 
           enable-qemu: "false"
@@ -62,7 +62,7 @@ jobs:
 
       - name: Build Docker Image
         env:
-          DOCKERFILE_PATH: Dockerfile
+          DOCKERFILE_PATH: "Dockerfile"
           BUILD_CONTEXT: "."
         run: | 
           docker buildx build --platform linux/amd64 --load --tag local/python-app:ci .
