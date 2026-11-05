@@ -66,8 +66,8 @@ jobs:
 
       - name: Build Docker Image
         env:
-          DOCKERFILE_PATH: ${{ steps.docker-ci.outputs.dockerfile-absolute-path }}
-          BUILD_CONTEXT: ${{ steps.docker-ci.outputs.build-context-absolute-path }}
+          DOCKERFILE_PATH: ${{ steps.docker-env.outputs.dockerfile-absolute-path }}
+          BUILD_CONTEXT: ${{ steps.docker-env.outputs.build-context-absolute-path }}
 
         run: |
           docker buildx build \
