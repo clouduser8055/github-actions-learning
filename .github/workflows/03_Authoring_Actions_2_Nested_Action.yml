@@ -12,6 +12,18 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - name: Debug Repository Structure
+        run: |
+          echo "Current directory:"
+          pwd
+
+          echo "Repository files:"
+          ls -la "$GITHUB_WORKSPACE"
+
+          echo "Searching for Dockerfiles:"
+          find "$GITHUB_WORKSPACE" -maxdepth 5 -type f \
+            \( -iname 'Dockerfile' -o -iname '*.dockerfile' \) -print
+
       - name: Prepare Docker CI
         id: docker-env
 
