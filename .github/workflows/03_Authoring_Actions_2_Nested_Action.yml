@@ -12,16 +12,20 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Debug Repository Structure
+      - name: Debug Repository
+        shell: bash
         run: |
-          echo "Current directory:"
-          pwd
+          echo "Current workspace:"
+          echo "$GITHUB_WORKSPACE"
+
+          echo "Current branch:"
+          echo "$GITHUB_REF"
 
           echo "Repository files:"
           ls -la "$GITHUB_WORKSPACE"
 
-          echo "Searching for Dockerfiles:"
-          find "$GITHUB_WORKSPACE" -maxdepth 5 -type f \
+          echo "Searching for Dockerfile:"
+          find "$GITHUB_WORKSPACE" -maxdepth 4 -type f \
             \( -iname 'Dockerfile' -o -iname '*.dockerfile' \) -print
 
       - name: Prepare Docker CI
@@ -29,7 +33,7 @@ jobs:
 
         uses: $/.github/actions/docker-ci-prepare
         with:
-          dockerfile-path: "Dockerfile"
+          dockerfile-path: Dockerfile
           build-context: "."
 
           enable-qemu: "false"
@@ -62,7 +66,7 @@ jobs:
 
       - name: Build Docker Image
         env:
-          DOCKERFILE_PATH: "Dockerfile"
+          DOCKERFILE_PATH: Dockerfile
           BUILD_CONTEXT: "."
         run: | 
           docker buildx build --platform linux/amd64 --load --tag local/python-app:ci .
