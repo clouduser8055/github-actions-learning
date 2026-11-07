@@ -1,4 +1,4 @@
-name: Testing Custom Action - clouduser8055/setup-docker-buildx-action@v1.0.0
+name: Testing Custom Action - clouduser8055/setup-docker-buildx-action@v1.0.2
 
 on: 
   workflow_dispatch: 
@@ -11,7 +11,7 @@ jobs:
 
       - name: setup docker buildx
         id: buildx
-        uses: clouduser8055/setup-docker-buildx-action@v1.0.1
+        uses: clouduser8055/setup-docker-buildx-action@v1.0.2
         with:
           enable-qemu: "true"
           qemu-platforms: arm64

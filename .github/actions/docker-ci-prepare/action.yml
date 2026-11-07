@@ -65,7 +65,7 @@ runs:
 
     - name: Setup Docker Buildx
       id: builder
-      uses: clouduser8055/setup-docker-buildx-action@v1.0.1
+      uses: clouduser8055/setup-docker-buildx-action@v1.0.2
       with:
         enable-qemu: ${{ inputs.enable-qemu }}
         qemu-platforms: ${{ inputs.qemu-platforms }}
