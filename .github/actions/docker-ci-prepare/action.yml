@@ -65,7 +65,7 @@ runs:
 
     - name: Setup Docker Buildx
       id: builder
-      uses: clouduser8055/setup-docker-buildx-action@v1.0.0
+      uses: clouduser8055/setup-docker-buildx-action@v1.0.1
       with:
         enable-qemu: ${{ inputs.enable-qemu }}
         qemu-platforms: ${{ inputs.qemu-platforms }}
@@ -75,7 +75,7 @@ runs:
       shell: bash
 
       env:
-        CONTEXT-VALIDATED: ${{ steps.context.outputs.validated }}
+        DOCKERFILE_VALIDATED: ${{ steps.context.outputs.validated }}
         BUILDER-NAME: ${{ steps.builder.outputs.builder-name }}
         BUILDER-DRIVER: ${{ steps.builder.outputs.builder-driver }}
         BUILDER-PLATFORMS: ${{ steps.builder.outputs.builder-platforms }}

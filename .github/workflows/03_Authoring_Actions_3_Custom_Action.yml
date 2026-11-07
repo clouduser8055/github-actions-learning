@@ -11,7 +11,7 @@ jobs:
 
       - name: setup docker buildx
         id: buildx
-        uses: clouduser8055/setup-docker-buildx-action@v1.0.0
+        uses: clouduser8055/setup-docker-buildx-action@v1.0.1
         with:
           enable-qemu: "true"
           qemu-platforms: arm64

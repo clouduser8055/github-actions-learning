@@ -70,16 +70,18 @@ jobs:
           BUILD_CONTEXT: ${{ steps.docker-env.outputs.build-context-absolute-path }}
 
         run: |
+          IMAGE="$REGISTRY/$IMAGE_NAME:$GITHUB_SHA"
+
           docker buildx build \
             --file "$DOCKERFILE_PATH" \
             --platform linux/amd64 \
             --load \
-            --tag local/python-app:ci \
+            --tag "$IMAGE" \
             "$BUILD_CONTEXT"
 
       - name: Verify Docker Image
         run: |
-          docker image inspect local/python-app:ci
+          docker image inspect "$REGISTRY/$IMAGE_NAME:$GITHUB_SHA"
 
 
 
