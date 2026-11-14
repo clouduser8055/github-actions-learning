@@ -20,7 +20,7 @@ jobs:
         shell: python
 
       - name: hello by javacript actions
-        uses: actions/hello-world-javascript-action@081a6d193d1dcb38460df1e6927486d748730f9d
+        uses: actions/hello-world-javascript-action@79ac0da13ee392da3fdd151813d5ce4658cb7e27
         with:
           who-to-greet: "ANUJ NAHAR"
 
