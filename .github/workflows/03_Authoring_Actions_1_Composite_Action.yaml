@@ -11,7 +11,7 @@ jobs:
 
       - name: Python setup using composite action
         id: python-env
-        uses: ./.github/actions/setup-python-environment
+        uses: $/.github/actions/setup-python-environment
         with:
           python-version: 3.13
           requirements-file: requirements.txt
