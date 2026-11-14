@@ -9,7 +9,7 @@ jobs:
       pull-requests: read
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v5.1.0
       - name: Install Github CLI
         run: sudo apt-get update -qq && sudo apt-get install -y gh
       - name: Display Github CLI version
@@ -35,7 +35,7 @@ jobs:
       pull-requests: write
     
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v5.1.0
       - name: Attempt to add a label (expected to success)
         env:
           GH_TOKEN: ${{ github.token }}

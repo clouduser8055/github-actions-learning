@@ -7,14 +7,14 @@ jobs:
   test-custom-action:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
 
       - name: setup docker buildx
         id: buildx
         # git tag -a v1.0.1 -m "Fix QEMU output mapping"
         # git push origin v1.0.1
         # git rev-parse "v1.0.0^{commit}" --> This gives you the actual commit SHA.
-        uses: clouduser8055/setup-docker-buildx-action@910c8e8f119eb9fe346b5ecca54d4a5fe88ab3a8
+        uses: clouduser8055/setup-docker-buildx-action@v1.0.2
         with:
           enable-qemu: "true"
           qemu-platforms: arm64

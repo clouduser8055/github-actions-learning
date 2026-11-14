@@ -47,7 +47,7 @@ runs:
       run: bash "$ACTION_PATH/scripts/validate.sh"
 
     - name: Setup python
-      uses: actions/setup-python@v7
+      uses: actions/setup-python@v7.1.0
       with:
         python-version: ${{ inputs.python-version }}
 

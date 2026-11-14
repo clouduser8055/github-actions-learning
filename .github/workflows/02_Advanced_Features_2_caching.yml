@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: restore cache
         id: demo-cache
-        uses: actions/cache@v5
+        uses: actions/cache@v5.1.0
         with:
           path: demo-cache
           key: demo-cache-v1
@@ -25,7 +25,7 @@ jobs:
 
       - name: Save cache
         if: steps.demo-cache.outputs.cache-hit != 'true'
-        uses: actions/cache@v5
+        uses: actions/cache@v5.1.0
         with:
           path: demo-cache
           key: demo-cache-v1
@@ -42,10 +42,10 @@ jobs:
 
     steps:
       - name: Checkout rep
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
 
       - name: Python setup  
-        uses: actions/setup-python@v7
+        uses: actions/setup-python@v7.1.0
         with:
           python-version: "3.13"
           cache: "pip"
