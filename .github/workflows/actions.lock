@@ -4,7 +4,7 @@
 version: 'v0.0.3'
 workflows:
     '.github/workflows/01_Core_Features_1.yml':
-        - 'actions/hello-world-javascript-action@081a6d193d1dcb38460df1e6927486d748730f9d'
+        - 'actions/hello-world-javascript-action@79ac0da13ee392da3fdd151813d5ce4658cb7e27'
     '.github/workflows/01_Core_Features_2_Triggers.yml': []
     '.github/workflows/01_Core_Features_3_Variables_&_Secrets.yml': []
     '.github/workflows/01_Core_Features_4_Outputs.yml': []
@@ -67,9 +67,9 @@ dependencies:
         commit: 'sha1-9000827ccba6bdab643e8b6fd33ac0654aef8333'
         owner_id: 44036562
         repo_id: 192626254
-    'actions/hello-world-javascript-action@081a6d193d1dcb38460df1e6927486d748730f9d':
+    'actions/hello-world-javascript-action@79ac0da13ee392da3fdd151813d5ce4658cb7e27':
         ref: 'main'
-        commit: 'sha1-081a6d193d1dcb38460df1e6927486d748730f9d'
+        commit: 'sha1-79ac0da13ee392da3fdd151813d5ce4658cb7e27'
         owner_id: 44036562
         repo_id: 200423311
     'actions/setup-python@v7.1.0':
